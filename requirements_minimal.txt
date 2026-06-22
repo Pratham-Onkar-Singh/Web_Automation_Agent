@@ -1,0 +1,21 @@
+# =============================================================================
+# Web Automation Agent — Minimal Requirements
+# =============================================================================
+# Install with: pip install -r requirements_minimal.txt
+# Then:         playwright install chromium
+#
+# Note: requirements.txt is the full pip freeze of the dev environment.
+# Use THIS file for a clean install of just what this project needs.
+# =============================================================================
+
+# Browser automation — controls Chromium
+playwright>=1.52.0
+
+# OpenAI-compatible HTTP client — talks to HuggingFace Router API
+openai>=1.0.0
+
+# Load .env file (HF_API_TOKEN) into environment variables
+python-dotenv>=1.0.0
+
+# Screenshot compression — resize PNG to JPEG before sending to AI
+Pillow>=10.0.0

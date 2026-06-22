@@ -1,0 +1,46 @@
+# =============================================================================
+# Web Automation Agent — .gitignore
+# =============================================================================
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environment
+venv/
+env/
+.venv/
+.env/
+
+# Environment secrets — NEVER commit your API token
+.env
+
+# Screenshots captured during agent runs
+screenshots/*.png
+screenshots/*.jpg
+# Keep the folder itself (tracked via .gitkeep)
+!screenshots/.gitkeep
+
+# Playwright browser binaries (auto-downloaded, not source)
+playwright/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Logs
+*.log
+
+# Test artifacts
+test_*.png
+
