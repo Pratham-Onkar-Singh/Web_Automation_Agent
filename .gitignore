@@ -28,6 +28,18 @@ screenshots/*.jpg
 # Keep the folder itself (tracked via .gitkeep)
 !screenshots/.gitkeep
 
+# Runtime traces, reports, and generated viewer output
+traces/*.jsonl
+reports/*
+!reports/.gitkeep
+trace.html
+
+# Coverage and local tooling caches
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
 # Playwright browser binaries (auto-downloaded, not source)
 playwright/
 
@@ -43,4 +55,3 @@ playwright/
 
 # Test artifacts
 test_*.png
-
