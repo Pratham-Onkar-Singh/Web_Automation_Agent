@@ -1,0 +1,2 @@
+{"response":"{\"tool\":\"navigate_to_url\",\"args\":{\"url\":\"http://127.0.0.1:8765/\"}}"}
+{"response":"{\"tool\":\"done\",\"args\":{}}"}
