@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 HF_API_TOKEN: str | None = os.getenv("HF_API_TOKEN")
+MODEL: str = os.getenv("WEB_AGENT_MODEL", "Qwen/Qwen3-VL-30B-A3B-Instruct")
 
 if not HF_API_TOKEN:
     print(

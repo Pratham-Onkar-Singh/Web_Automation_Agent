@@ -7,15 +7,12 @@ from src.agent.agent import run_agent
 from src.utils.logger import logger
 
 TASK = """
-1. You are on Youtube page
-2. Search for Fifa highlights 
+Open youtube and search for Fifa highlights.
 """
-
-START_URL = "https://www.youtube.com/"
 
 async def main():
     try:
-        await run_agent(TASK, START_URL)
+        await run_agent(TASK, protect_enter=False)
     except Exception as e:
         logger.error(f"Agent crashed: {e}")
 

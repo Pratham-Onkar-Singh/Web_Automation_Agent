@@ -12,7 +12,9 @@ class BrowserState:
     def __init__(self) -> None:
         self.playwright = None
         self.browser = None
+        self.context = None
         self.page = None
         self.step_count: int = 0
+        self.screenshot_meta = None
 
 state = BrowserState()

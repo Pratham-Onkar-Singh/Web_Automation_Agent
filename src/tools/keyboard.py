@@ -15,9 +15,9 @@ async def send_keys(text: str) -> str:
         if not state.page:
             return "Error: Browser not open"
             
-        logger.info(f"Typing: {text}")
+        logger.info(f"Typing text ({len(text)} characters)")
         await state.page.keyboard.type(text)
-        return f"Typed: {text}"
+        return f"Typed {len(text)} characters"
     except Exception as e:
         logger.error(f"Type failed: {e}")
         return f"Error: Type failed: {e}"

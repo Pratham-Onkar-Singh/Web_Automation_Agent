@@ -5,10 +5,11 @@ High-level browser lifecycle management for the Web Automation Agent.
 """
 
 from playwright.async_api import async_playwright
+from src.agent.policy import ActionPolicy
 from src.tools.state import state
 from src.utils.logger import logger
 
-async def open_browser() -> str:
+async def open_browser(allowed_origins: set[str] | None = None) -> str:
     """
     Launch a visible Chromium browser at 1280x720 and store the handles.
     """
@@ -19,7 +20,19 @@ async def open_browser() -> str:
         logger.info("Launching Chromium (1280x720, visible)...")
         state.playwright = await async_playwright().start()
         state.browser = await state.playwright.chromium.launch(headless=False)
-        state.page = await state.browser.new_page(viewport={"width": 1280, "height": 720})
+        state.context = await state.browser.new_context(viewport={"width": 1280, "height": 720}, service_workers="block", accept_downloads=False)
+        policy = ActionPolicy(allowed_origins, allow_bootstrap_navigation=allowed_origins is None)
+
+        async def guard(route):
+            request = route.request
+            try:
+                policy.check_url(request.url)
+                await route.continue_()
+            except Exception:
+                await route.abort("blockedbyclient")
+
+        await state.context.route("**/*", guard)
+        state.page = await state.context.new_page()
         
         async def on_page(new_page):
             logger.info("New tab detected! Switching agent focus to new tab.")
@@ -27,7 +40,7 @@ async def open_browser() -> str:
             await new_page.wait_for_load_state("domcontentloaded")
             state.page = new_page
             
-        state.browser.contexts[0].on("page", on_page)
+        state.context.on("page", on_page)
         
         return "Browser launched successfully"
     except Exception as e:
@@ -63,6 +76,7 @@ async def close_browser() -> str:
         if state.browser:
             await state.browser.close()
             state.browser = None
+        state.context = None
             
         if state.playwright:
             await state.playwright.stop()

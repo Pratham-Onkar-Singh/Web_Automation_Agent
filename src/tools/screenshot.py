@@ -28,6 +28,9 @@ async def take_screenshot() -> str:
     logger.info(f"Screenshot saved to {filename}")
     
     img = Image.open(io.BytesIO(png_bytes))
+    viewport = state.page.viewport_size or {"width": img.width, "height": img.height}
+    from src.agent.actions import ScreenshotMeta
+    state.screenshot_meta = ScreenshotMeta(img.width, img.height, viewport["width"], viewport["height"])
     if img.mode in ("RGBA", "LA", "P"):
         img = img.convert("RGB")
     buffer = io.BytesIO()
