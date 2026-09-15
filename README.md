@@ -27,7 +27,7 @@ Every step of the loop:
 ### 1. Clone and Set Up
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/Pratham-Onkar-Singh/Web_Automation_Agent
 cd "Web Automation Agent"
 
 # Create virtual environment
